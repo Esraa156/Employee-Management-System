@@ -1,0 +1,26 @@
+<div class="department-form-container">
+  <h2>{{ isEditMode ? 'Edit Department' : 'Add Department' }}</h2>
+
+  <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label>Name</label>
+      <input formControlName="name" placeholder="Enter department name">
+      <div *ngIf="departmentForm.controls['name'].invalid && departmentForm.controls['name'].touched" class="error">
+        Name is required
+      </div>
+    </div>
+
+    <div *ngIf="submissionError" class="error">
+      {{ submissionError }}
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-success" [disabled]="departmentForm.invalid">
+        {{ isEditMode ? 'Update' : 'Add' }}
+      </button>
+      <button type="button" routerLink="/departments" class="btn btn-secondary">Cancel</button>
+    </div>
+
+  </form>
+</div>

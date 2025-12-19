@@ -1,0 +1,26 @@
+<div class="job-form-container">
+  <h2>{{ isEditMode ? 'Edit Job' : 'Add Job' }}</h2>
+
+  <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label>Name</label>
+      <input formControlName="name" placeholder="Enter job name">
+      <div *ngIf="jobForm.controls['name'].invalid && jobForm.controls['name'].touched" class="error">
+        Name is required
+      </div>
+    </div>
+
+    <div *ngIf="submissionError" class="error">
+      {{ submissionError }}
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-success" [disabled]="jobForm.invalid">
+        {{ isEditMode ? 'Update' : 'Add' }}
+      </button>
+      <button type="button" routerLink="/jobs" class="btn btn-secondary">Cancel</button>
+    </div>
+
+  </form>
+</div>

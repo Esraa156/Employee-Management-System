@@ -1,0 +1,9 @@
+<h2>userlist</h2>
+
+<button (click)="loadUsers()">LoadData</button>
+<ul>
+<li *ngFor="let user of users">{{user|jj}}</li>
+
+</ul>
+<input type="text" placeholder="Search,....." [(ngModel)]="searchText" (keyup)="LoadFiltered()">
+<li *ngFor="let user of filterusr">{{user|jj}}</li>

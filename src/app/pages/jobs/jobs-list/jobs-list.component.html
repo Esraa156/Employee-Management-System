@@ -1,0 +1,22 @@
+<div class="job-container">
+  <h2>Jobs</h2>
+  <button routerLink="/jobs/add" class="btn btn-success">Add Job</button>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Job Title</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let job of jobs">
+        <td>{{ job.name }}</td>
+        <td>
+          <button [routerLink]="['/jobs/edit', job.id]" class="btn btn-primary">Edit</button>
+          <button (click)="deleteJob(job.id)" class="btn btn-danger">Deactivate</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

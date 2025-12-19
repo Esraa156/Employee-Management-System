@@ -1,0 +1,88 @@
+<div class="employee-container">
+
+  <h2 class="page-title">Employees List</h2>
+
+  <!-- Filters -->
+  <div class="filters">
+    <input placeholder="Search by Name" [(ngModel)]="filters.name">
+    <input placeholder="Search by Email" [(ngModel)]="filters.email">
+    <input placeholder="Search by Mobile" [(ngModel)]="filters.mobile">
+<select [(ngModel)]="filters.departmentId">
+  <option value="" >Select Department</option>
+  <option *ngFor="let d of departments" [value]="d.id">{{ d.name }}</option>
+</select>
+
+<select [(ngModel)]="filters.jobTitleId">
+  <option value="" >Select Job</option>
+  <option *ngFor="let j of jobTitles" [value]="j.id">{{ j.name }}</option>
+</select>
+
+
+    <label>DOB From:</label>
+    <input type="date" [(ngModel)]="filters.dobFrom">
+
+    <label>To:</label>
+    <input type="date" [(ngModel)]="filters.dobTo">
+
+    <button class="btn btn-primary" (click)="search()">Apply Filters</button>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    <button class="btn btn-success" routerLink="/employees/add">Add Employee</button>
+    <button class="btn btn-warning" (click)="exportToExcel()">Export Excel</button>
+  </div>
+
+  <!-- Table -->
+  <table class="employee-table">
+    <thead>
+      <tr>
+        <th (click)="sort('FullName')">
+          Name <span *ngIf="sortColumn === 'FullName'">{{ sortDir === 'asc' ? '▲' : '▼' }}</span>
+        </th>
+        <th (click)="sort('Email')">
+          Email <span *ngIf="sortColumn === 'Email'">{{ sortDir === 'asc' ? '▲' : '▼' }}</span>
+        </th>
+        <th>Mobile</th>
+        <th>Department</th>
+        <th>Job</th>
+        <th (click)="sort('DateOfBirth')">
+          DOB <span *ngIf="sortColumn === 'DateOfBirth'">{{ sortDir === 'asc' ? '▲' : '▼' }}</span>
+        </th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let emp of employees">
+        <td>{{ emp.fullName }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.mobile }}</td>
+        <td>{{ emp.department }}</td>
+        <td>{{ emp.jobTitle }}</td>
+        <td>{{ emp.dateOfBirth | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <button class="btn btn-primary" [routerLink]="['/employees/edit', emp.id]">Edit</button>
+          <button class="btn btn-danger" (click)="softDelete(emp.id)">Deactivate</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <div class="pagination">
+  <button (click)="changePage(filters.pageNumber - 1)" [disabled]="filters.pageNumber === 1">
+    Prev
+  </button>
+    <button *ngFor="let p of pages"
+            [class.active]="filters.pageNumber === p"
+            (click)="changePage(p)">
+      {{ p }}
+    </button>
+    
+  <button (click)="changePage(filters.pageNumber + 1)" [disabled]="filters.pageNumber === totalPages">
+    Next
+  </button>
+  </div>
+</div>

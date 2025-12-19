@@ -1,0 +1,24 @@
+<div class="department-container">
+  <h2>Departments</h2>
+  <button routerLink="/departments/add" class="btn btn-success">Add Department</button>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of departments">
+        <td>{{ d.name }}</td>
+        <td>{{ d.isActive ? 'Active' : 'Inactive' }}</td>
+        <td>
+          <button [routerLink]="['/departments/edit', d.id]" class="btn btn-primary">Edit</button>
+          <button (click)="softDelete(d.id)" class="btn btn-danger">Deactivate</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
